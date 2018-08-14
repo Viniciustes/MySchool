@@ -1,4 +1,6 @@
-﻿using MySchool.Domain.Interfaces.Repositories;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using MySchool.Domain.Interfaces.Repositories;
 using MySchool.Service.Interfaces;
 
 namespace MySchool.Service.Services
@@ -10,6 +12,11 @@ namespace MySchool.Service.Services
         public Service(IRepository<Entity> repository)
         {
             _repository = repository;
+        }
+
+        public async Task<IEnumerable<Entity>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
         }
     }
 }
