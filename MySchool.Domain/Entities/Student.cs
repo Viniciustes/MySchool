@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace MySchool.Domain.Entities
 {
-    public class Student
+    public class Student : BasicEntity
     {
-        public int StudentId { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

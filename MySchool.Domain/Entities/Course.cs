@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MySchool.Domain.Entities
 {
-    public class Course
+    public class Course : BasicEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CourseID { get; set; }
-
         public string Title { get; set; }
 
         public int Credits { get; set; }

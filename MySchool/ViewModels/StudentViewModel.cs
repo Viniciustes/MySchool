@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MySchool.ViewModels
 {
     public class StudentViewModel
     {
-        public int StudentId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Nome é obrigatório.")]
@@ -20,5 +21,8 @@ namespace MySchool.ViewModels
 
         [Display(Name = "Data de cadastro")]
         public DateTime EnrollmentDate { get; set; }
+
+        [Display(Name = "Matrículas")]
+        public IList<EnrollmentViewModel> EnrollmentViewModels { get; set; }
     }
 }

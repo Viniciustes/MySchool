@@ -2,10 +2,8 @@
 
 namespace MySchool.Domain.Entities
 {
-    public class Enrollment
+    public class Enrollment : BasicEntity
     {
-        public int EnrollmentId { get; set; }
-
         public int StudentId { get; set; }
 
         public int CourseId { get; set; }
