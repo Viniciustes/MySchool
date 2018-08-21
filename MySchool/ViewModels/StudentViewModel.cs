@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MySchool.ViewModels
 {
@@ -16,5 +17,8 @@ namespace MySchool.ViewModels
 
         [Display(Name = "Nome Completo")]
         public string FullName => FirstName + " " + LastName;
+
+        [Display(Name = "Data de cadastro")]
+        public DateTime EnrollmentDate { get; set; }
     }
 }
