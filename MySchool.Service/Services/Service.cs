@@ -7,7 +7,7 @@ namespace MySchool.Service.Services
 {
     public class Service<Entity> : IService<Entity> where Entity : class
     {
-        private readonly IRepository<Entity> _repository;
+        protected readonly IRepository<Entity> _repository;
 
         public Service(IRepository<Entity> repository)
         {

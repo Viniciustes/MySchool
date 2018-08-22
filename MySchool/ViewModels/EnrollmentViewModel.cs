@@ -5,6 +5,7 @@ namespace MySchool.ViewModels
     public class EnrollmentViewModel
     {
         public Grade? Grade { get; set; }
-        public CourseViewModel CourseViewModel { get; set; }
+
+        public string CourseTitle { get; set; }
     }
 }

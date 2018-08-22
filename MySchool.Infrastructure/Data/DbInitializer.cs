@@ -58,22 +58,22 @@ namespace MySchool.Infrastructure.Data
 
             var enrollments = new Enrollment[] {
                   new Enrollment {
-                    StudentId = 1, CourseId = 1020, Grade = Domain.Enums.Grade.B
+                    StudentId = 1, CourseId = 1, Grade = Domain.Enums.Grade.B
                   },
                   new Enrollment {
-                    StudentId = 2, CourseId = 1020
+                    StudentId = 2, CourseId = 1
                   },
                   new Enrollment {
-                    StudentId = 3, CourseId = 2030, Grade = Domain.Enums.Grade.A
+                    StudentId = 3, CourseId = 2, Grade = Domain.Enums.Grade.A
                   },
                   new Enrollment {
-                    StudentId = 4, CourseId = 4050
+                    StudentId = 4, CourseId = 4
                   },
                   new Enrollment {
-                    StudentId = 5, CourseId = 5060, Grade = Domain.Enums.Grade.C
+                    StudentId = 5, CourseId = 5, Grade = Domain.Enums.Grade.C
                   },
                   new Enrollment {
-                    StudentId = 2, CourseId = 1020, Grade = Domain.Enums.Grade.F
+                    StudentId = 2, CourseId = 1, Grade = Domain.Enums.Grade.F
                   }
             };
             context.Enrollments.AddRange(enrollments);

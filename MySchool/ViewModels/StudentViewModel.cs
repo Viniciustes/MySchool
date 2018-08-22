@@ -6,6 +6,11 @@ namespace MySchool.ViewModels
 {
     public class StudentViewModel
     {
+        public StudentViewModel()
+        {
+            EnrollmentViewModels = new List<EnrollmentViewModel>();
+        }
+
         public int Id { get; set; }
 
         [Display(Name = "Nome")]

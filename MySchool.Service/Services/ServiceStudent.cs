@@ -7,11 +7,16 @@ namespace MySchool.Service.Services
 {
     public class ServiceStudent : Service<Student>, IServiceStudent
     {
-        public ServiceStudent(IRepositoryStudent repository) : base(repository) { }
+        private readonly IRepositoryStudent _repositoryStudent;
 
-        public Task<Student> GetStudentByIdAsNoTrackingAsync(int id)
+        public ServiceStudent(IRepositoryStudent repositoryStudent) : base(repositoryStudent)
         {
-            throw new System.NotImplementedException();
+            _repositoryStudent = repositoryStudent;
+        }
+
+        public async Task<Student> GetStudentByIdAsNoTrackingAsync(int id)
+        {
+            return await _repositoryStudent.GetStudentByIdAsNoTrackingAsync(id);
         }
     }
 }

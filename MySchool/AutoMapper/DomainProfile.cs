@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MySchool.Domain.Entities;
 using MySchool.ViewModels;
+using System.Linq;
 
 namespace MySchool.AutoMapper
 {
@@ -8,7 +9,11 @@ namespace MySchool.AutoMapper
     {
         public DomainProfile()
         {
-            CreateMap<Student, StudentViewModel>().ReverseMap();
+            CreateMap<Student, StudentViewModel>()
+                .ForMember(vwm => vwm.EnrollmentViewModels, opt => opt.MapFrom(src => src.Enrollments))
+                .ReverseMap();
+
+            CreateMap<Enrollment, EnrollmentViewModel>().ReverseMap();
         }
     }
 }
