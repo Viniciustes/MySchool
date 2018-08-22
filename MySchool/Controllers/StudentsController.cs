@@ -19,10 +19,14 @@ namespace MySchool.Controllers
             _serviceStudent = serviceStudent;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
-            var students = await _serviceStudent.GetAllAsync();
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var students = await _serviceStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
             var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
+
             return View(studentsViewModel);
         }
 
@@ -31,12 +35,7 @@ namespace MySchool.Controllers
             if (id == null)
                 return NotFound();
 
-            var student = await _serviceStudent.GetStudentByIdAsNoTrackingAsync((int)id);
-
-            if (student == null)
-                return NotFound();
-
-            var studentsViewModel = _mapper.Map<StudentViewModel>(student);
+            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
 
             return View(studentsViewModel);
         }
@@ -63,37 +62,60 @@ namespace MySchool.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            return await Details(id);
+            if (id == null)
+                return NotFound();
+
+            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
+
+            return View(studentsViewModel);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> EditPost(int id, [Bind("FirstName,LastName,EnrollmentDate,Id")] StudentViewModel studentViewModel)
+        {
+            if (id != studentViewModel.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                var student = _mapper.Map<Student>(studentViewModel);
+                await _serviceStudent.UpdateAsync(student);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(studentViewModel);
+        }
+
+        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
                 return NotFound();
 
-            var studentToUpdate = await _serviceStudent.GetByIdAsync((int)id);
+            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
 
-            //if (await TryUpdateModelAsync<Student>(
-            //    studentToUpdate,
-            //    "",
-            //    s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
-            //{
-            //    try
-            //    {
-            //        await _context.SaveChangesAsync();
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //    catch (DbUpdateException /* ex */)
-            //    {
-            //        //Log the error (uncomment ex variable name and write a log.)
-            //        ModelState.AddModelError("", "Unable to save changes. " +
-            //            "Try again, and if the problem persists, " +
-            //            "see your system administrator.");
-            //    }
-            //}
-            return View(studentToUpdate);
+            return View(studentsViewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var student = await _serviceStudent.GetStudentByIdAsNoTrackingAsync(id);
+
+            await _serviceStudent.DeleteAsync(student);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<StudentViewModel> GetStudentByIdAsNoTrackingAsync(int id)
+        {
+            var student = await _serviceStudent.GetStudentByIdAsNoTrackingAsync(id);
+
+            var studentsViewModel = _mapper.Map<StudentViewModel>(student);
+
+            return studentsViewModel;
         }
     }
 }

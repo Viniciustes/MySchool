@@ -22,6 +22,12 @@ namespace MySchool.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Entity entity)
+        {
+            _context.Set<Entity>().Remove(entity);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Entity>> GetAllAsync()
         {
             return await _context.Set<Entity>().AsNoTracking().ToListAsync();

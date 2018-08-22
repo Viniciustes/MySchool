@@ -19,6 +19,11 @@ namespace MySchool.Service.Services
             await _repository.AddAsync(entity);
         }
 
+        public async Task DeleteAsync(Entity entity)
+        {
+            await _repository.DeleteAsync(entity);
+        }
+
         public async Task<IEnumerable<Entity>> GetAllAsync()
         {
             return await _repository.GetAllAsync();

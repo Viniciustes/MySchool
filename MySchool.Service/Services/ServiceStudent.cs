@@ -1,6 +1,7 @@
 ﻿using MySchool.Domain.Entities;
 using MySchool.Domain.Interfaces.Repositories;
 using MySchool.Service.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MySchool.Service.Services
@@ -17,6 +18,11 @@ namespace MySchool.Service.Services
         public async Task<Student> GetStudentByIdAsNoTrackingAsync(int id)
         {
             return await _repositoryStudent.GetStudentByIdAsNoTrackingAsync(id);
+        }
+
+        public async Task<IList<Student>> GetStudentListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
+        {
+            return await _repositoryStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
         }
     }
 }

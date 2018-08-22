@@ -10,5 +10,6 @@ namespace MySchool.Domain.Interfaces.Repositories
         Task<Entity> GetByIdAsync(int id);
         Task AddAsync(Entity entity);
         Task UpdateAsync(Entity entity);
+        Task DeleteAsync(Entity entity);
     }
 }
