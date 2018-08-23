@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MySchool.Domain.Entities
+﻿namespace MySchool.Domain.Entities
 {
     public class CourseAssignment
     {
+        public int CourseId { get; set; }
+
+        public Course Course { get; set; }
+
+        public int InstructorId { get; set; }
+
+        public Instructor Instructor { get; set; }
     }
 }
