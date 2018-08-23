@@ -6,6 +6,6 @@ namespace MySchool.Service.Interfaces
 {
     public interface IServiceStudent : IService<Student>
     {
-        Task<IList<Student>> GetStudentListAsNoTrackingAsyncPaginated(string sortOrder, string searchString);
+        Task<IList<Student>> GetListAsNoTrackingAsyncPaginated(string sortOrder, string searchString);
     }
 }

@@ -15,9 +15,9 @@ namespace MySchool.Service.Services
             _repositoryStudent = repositoryStudent;
         }
 
-        public async Task<IList<Student>> GetStudentListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
+        public async Task<IList<Student>> GetListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
         {
-            return await _repositoryStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
+            return await _repositoryStudent.GetListAsNoTrackingAsyncPaginated(sortOrder, searchString);
         }
     }
 }

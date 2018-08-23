@@ -24,7 +24,7 @@ namespace MySchool.Controllers
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var students = await _serviceStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
+            var students = await _serviceStudent.GetListAsNoTrackingAsyncPaginated(sortOrder, searchString);
             var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
 
             return View(studentsViewModel);

@@ -20,12 +20,24 @@ namespace MySchool.Infrastructure.Repositories
         {
             await _context.Set<Entity>().AddAsync(entity);
             await _context.SaveChangesAsync();
+
+            //SET NOCOUNT ON;
+            //INSERT INTO [Student] ([EnrollmentDate], [FirstName], [LastName])
+            //VALUES (@p0, @p1, @p2);
+            //SELECT [Id]
+            //FROM [Student]
+            //WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();
         }
 
         public async Task DeleteAsync(Entity entity)
         {
             _context.Set<Entity>().Remove(entity);
             await _context.SaveChangesAsync();
+
+            //SET NOCOUNT ON;
+            //DELETE FROM [Student]
+            //WHERE [Id] = @p0;
+            //SELECT @@ROWCOUNT;
         }
 
         public async Task<IEnumerable<Entity>> GetAllAsync()
@@ -52,6 +64,11 @@ namespace MySchool.Infrastructure.Repositories
         {
             _context.Set<Entity>().Update(entity);
             await _context.SaveChangesAsync();
+
+            //SET NOCOUNT ON;
+            //UPDATE [Student] SET [EnrollmentDate] = @p0, [FirstName] = @p1, [LastName] = @p2
+            //WHERE [Id] = @p3;
+            //SELECT @@ROWCOUNT;
         }
     }
 }
