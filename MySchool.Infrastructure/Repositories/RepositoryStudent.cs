@@ -12,7 +12,7 @@ namespace MySchool.Infrastructure.Repositories
     {
         public RepositoryStudent(MySchoolContext context) : base(context) { }
 
-        public async Task<Student> GetStudentByIdAsNoTrackingAsync(int id)
+        public new async Task<Student> GetByIdAsNoTrackingAsync(int id)
         {
             return await
                 _context.Students
@@ -33,7 +33,7 @@ namespace MySchool.Infrastructure.Repositories
             switch (sortOrder)
             {
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    students = students.OrderByDescending(s => s.FirstName);
                     break;
                 case "Date":
                     students = students.OrderBy(s => s.EnrollmentDate);
@@ -42,7 +42,7 @@ namespace MySchool.Infrastructure.Repositories
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
                 default:
-                    students = students.OrderBy(s => s.LastName);
+                    students = students.OrderBy(s => s.FirstName);
                     break;
             }
             return await students.AsNoTracking().ToListAsync();

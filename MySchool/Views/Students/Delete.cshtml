@@ -1,0 +1,44 @@
+﻿@model StudentViewModel
+
+@{
+    ViewData["Title"] = "Apagar Aluno";
+}
+
+<h2>Aluno</h2>
+
+<h3>Tem certeza que deseja apagar o cadastro desse aluno?</h3>
+<div>
+    <h4>Apagar aluno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="submit" value="Apagar aluno" class="btn btn-default" /> |
+        <a asp-action="Index">Voltar</a>
+    </form>
+</div>

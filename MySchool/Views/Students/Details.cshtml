@@ -1,13 +1,13 @@
 ﻿@model StudentViewModel
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = "Detalhes do Aluno";
 }
 
-<h2>Detalhes</h2>
+<h2>Aluno</h2>
 
 <div>
-    <h4>Student</h4>
+    <h4>Detalhes do aluno</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -32,23 +32,30 @@
             @Html.DisplayNameFor(model => model.EnrollmentViewModels)
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>Nome do curso</th>
-                    <th>Nota</th>
-                </tr>
-                @foreach (var item in Model.EnrollmentViewModels)
-                {
+            @if (Model.EnrollmentViewModels.Any())
+            {
+                <table class="table">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CourseTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Grade)
-                        </td>
+                        <th>Nome do curso</th>
+                        <th>Nota</th>
                     </tr>
-                }
-            </table>
+                    @foreach (var item in Model.EnrollmentViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grade)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Esse aluno não tem nenhuma matrícula.</p>
+            }
         </dd>
     </dl>
 </div>

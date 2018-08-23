@@ -5,6 +5,11 @@ namespace MySchool.Domain.Entities
 {
     public class Student : BasicEntity
     {
+        public Student()
+        {
+            EnrollmentDate = DateTime.Now;
+        }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
