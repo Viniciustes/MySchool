@@ -12,7 +12,7 @@ namespace MySchool.Infrastructure.Repositories
     {
         public RepositoryStudent(MySchoolContext context) : base(context) { }
 
-        public async Task<Student> GetStudentByIdAsNoTrackingAsync(int id)
+        public new async Task<Student> GetByIdAsNoTrackingAsync(int id)
         {
             return await
                 _context.Students
@@ -20,9 +20,21 @@ namespace MySchool.Infrastructure.Repositories
                     .ThenInclude(c => c.Course)
                .AsNoTracking()
                .SingleOrDefaultAsync(s => s.Id == id);
+
+            // Select da consulta abaixo:
+            //	SELECT [e.Enrollments].[Id], [e.Enrollments].[CourseId], [e.Enrollments].[Grade], [e.Enrollments].[StudentId], /  [e.Course]./[Id], [e.Course].[Credits], [e.Course].[Title]
+            //	FROM [Enrollment] AS [e.Enrollments]
+            //	INNER JOIN [Course] AS [e.Course] ON [e.Enrollments].[CourseId] = [e.Course].[Id]
+            //	INNER JOIN (
+            //	    SELECT TOP(1) [e0].[Id]
+            //	    FROM [Student] AS [e0]
+            //	    WHERE [e0].[Id] = 1
+            //	    ORDER BY [e0].[Id]
+            //	) AS [t] ON [e.Enrollments].[StudentId] = [t].[Id]
+            //	ORDER BY [t].[Id]
         }
 
-        public async Task<IList<Student>> GetStudentListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
+        public async Task<IList<Student>> GetListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
         {
             var students = from s in _context.Students
                            select s;
@@ -33,7 +45,7 @@ namespace MySchool.Infrastructure.Repositories
             switch (sortOrder)
             {
                 case "name_desc":
-                    students = students.OrderByDescending(s => s.LastName);
+                    students = students.OrderByDescending(s => s.FirstName);
                     break;
                 case "Date":
                     students = students.OrderBy(s => s.EnrollmentDate);
@@ -42,10 +54,17 @@ namespace MySchool.Infrastructure.Repositories
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
                 default:
-                    students = students.OrderBy(s => s.LastName);
+                    students = students.OrderBy(s => s.FirstName);
                     break;
             }
             return await students.AsNoTracking().ToListAsync();
+
+            // Consulta a banco de dados apenas vai ao banco após o ToList()
+
+            // Select da consulta abaixo:
+            // SELECT[s].[Id], [s].[EnrollmentDate], [s].[FirstName], [s].[LastName]
+            // FROM[Student] AS[s]
+            // ORDER BY[s].[FirstName]
         }
     }
 }

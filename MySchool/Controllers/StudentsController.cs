@@ -41,7 +41,7 @@ namespace MySchool.Controllers
             if (id == null)
                 return NotFound();
 
-            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
+            var studentsViewModel = await GetByIdAsNoTrackingAsync((int)id);
 
             return View(studentsViewModel);
         }
@@ -53,7 +53,7 @@ namespace MySchool.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,EnrollmentDate")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -71,14 +71,14 @@ namespace MySchool.Controllers
             if (id == null)
                 return NotFound();
 
-            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
+            var studentsViewModel = await GetByIdAsNoTrackingAsync((int)id);
 
             return View(studentsViewModel);
         }
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, [Bind("FirstName,LastName,EnrollmentDate,Id")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> EditPost(int id, [Bind("FirstName,LastName,Id")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
                 return NotFound();
@@ -99,7 +99,7 @@ namespace MySchool.Controllers
             if (id == null)
                 return NotFound();
 
-            var studentsViewModel = await GetStudentByIdAsNoTrackingAsync((int)id);
+            var studentsViewModel = await GetByIdAsNoTrackingAsync((int)id);
 
             return View(studentsViewModel);
         }
@@ -108,16 +108,16 @@ namespace MySchool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _serviceStudent.GetStudentByIdAsNoTrackingAsync(id);
+            var student = await _serviceStudent.GetByIdAsNoTrackingAsync(id);
 
             await _serviceStudent.DeleteAsync(student);
 
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<StudentViewModel> GetStudentByIdAsNoTrackingAsync(int id)
+        private async Task<StudentViewModel> GetByIdAsNoTrackingAsync(int id)
         {
-            var student = await _serviceStudent.GetStudentByIdAsNoTrackingAsync(id);
+            var student = await _serviceStudent.GetByIdAsNoTrackingAsync(id);
 
             var studentsViewModel = _mapper.Map<StudentViewModel>(student);
 
