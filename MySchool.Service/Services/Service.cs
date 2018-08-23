@@ -43,5 +43,10 @@ namespace MySchool.Service.Services
         {
             await _repository.UpdateAsync(entity);
         }
+
+        public async Task<int> CountAsync(Entity entity)
+        {
+            return await _repository.CountAsync(entity);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace MySchool.Service.Interfaces
         Task AddAsync(Entity entity);
         Task UpdateAsync(Entity entity);
         Task DeleteAsync(Entity entity);
+        Task<int> CountAsync(Entity entity);
     }
 }

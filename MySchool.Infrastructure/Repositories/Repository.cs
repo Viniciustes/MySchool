@@ -53,5 +53,10 @@ namespace MySchool.Infrastructure.Repositories
             _context.Set<Entity>().Update(entity);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> CountAsync(Entity entity)
+        {
+            return await _context.Set<Entity>().CountAsync();
+        }
     }
 }

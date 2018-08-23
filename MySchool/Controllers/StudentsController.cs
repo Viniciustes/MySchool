@@ -19,15 +19,21 @@ namespace MySchool.Controllers
             _serviceStudent = serviceStudent;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (!string.IsNullOrEmpty(searchString))
+                page = 1;
+            else
+                searchString = currentFilter;
 
             var students = await _serviceStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
             var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
 
-            return View(studentsViewModel);
+            return View(PaginatedListViewModel<StudentViewModel>.CreateAsync(studentsViewModel, page ?? 1));
         }
 
         public async Task<IActionResult> Details(int? id)
