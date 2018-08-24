@@ -12,9 +12,10 @@ namespace MySchool.Infrastructure.Mappings
 
             builder.HasKey(x => x.Id);
 
+            builder.HasMany(x => x.Courses).WithOne(y => y.Department);
+
             builder.Property(x => x.Name)
               .IsRequired()
-              .HasColumnType("varchar")
               .HasMaxLength(30);
 
             builder.Property(x => x.StartDate)
@@ -22,7 +23,6 @@ namespace MySchool.Infrastructure.Mappings
                 .HasColumnType("Date");
 
             builder.Property(x => x.Budget)
-               .IsRequired()
                .HasColumnType("money");
         }
     }

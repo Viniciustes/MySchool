@@ -12,14 +12,14 @@ namespace MySchool.Infrastructure.Mappings
 
             builder.HasKey(x => x.Id);
 
+            builder.HasMany(x => x.CourseAssignments).WithOne(y => y.Instructor);
+
             builder.Property(x => x.FirstName)
             .IsRequired()
-            .HasColumnType("varchar")
             .HasMaxLength(30);
 
             builder.Property(x => x.LastName)
                .IsRequired()
-               .HasColumnType("varchar")
                .HasMaxLength(30);
 
             builder.Property(x => x.HireDate)

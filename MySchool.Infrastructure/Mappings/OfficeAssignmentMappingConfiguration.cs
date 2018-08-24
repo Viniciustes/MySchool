@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MySchool.Domain.Entities;
-using System;
 
 namespace MySchool.Infrastructure.Mappings
 {
@@ -11,10 +10,9 @@ namespace MySchool.Infrastructure.Mappings
         {
             builder.ToTable("OfficeAssignment");
 
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.InstructorID);
 
             builder.Property(x => x.Location)
-              .HasColumnType("varchar")
               .HasMaxLength(30);
         }
     }

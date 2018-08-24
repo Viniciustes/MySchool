@@ -30,7 +30,7 @@ namespace MySchool.Controllers
             else
                 searchString = currentFilter;
 
-            var students = await _serviceStudent.GetStudentListAsNoTrackingAsyncPaginated(sortOrder, searchString);
+            var students = await _serviceStudent.GetListAsNoTrackingAsyncPaginated(sortOrder, searchString);
             var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
 
             return View(PaginatedListViewModel<StudentViewModel>.CreateAsync(studentsViewModel, page ?? 1));

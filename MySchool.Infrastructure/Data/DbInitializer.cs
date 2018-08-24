@@ -1,6 +1,5 @@
 ﻿using MySchool.Domain.Entities;
 using MySchool.Infrastructure.Contexts;
-using System;
 using System.Linq;
 
 namespace MySchool.Infrastructure.Data
@@ -14,21 +13,11 @@ namespace MySchool.Infrastructure.Data
             if (context.Students.Any()) return;
 
             var students = new Student[] {
-                   new Student {
-                        FirstName = "Vanessa", LastName = "Pedrosa", EnrollmentDate = DateTime.Parse("2002-09-30")
-                   },
-                   new Student {
-                        FirstName = "Larissa", LastName = "Silva", EnrollmentDate = DateTime.Parse("2003-02-24")
-                   },
-                   new Student {
-                        FirstName = "Ana Paula", LastName = "Palumbo", EnrollmentDate = DateTime.Parse("2004-07-12")
-                   },
-                   new Student {
-                        FirstName = "Gabriela", LastName = "Queiroz", EnrollmentDate = DateTime.Parse("2005-04-15")
-                   },
-                   new Student {
-                        FirstName = "Maria", LastName = "Sebastiana", EnrollmentDate = DateTime.Parse("2006-06-11")
-                   }
+                   new Student("Vanessa", "Pedrosa"),
+                   new Student("Larissa", "Silva"),
+                   new Student("Ana Paula", "Palumbo"),
+                   new Student("Gabriela", "Queiroz"),
+                   new Student("Maria", "Sebastiana")
              };
             context.Students.AddRange(students);
             context.SaveChanges();

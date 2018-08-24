@@ -10,6 +10,10 @@ namespace MySchool.Infrastructure.Mappings
         {
             builder.ToTable("Course");
 
+            builder.HasMany(x => x.CourseAssignments).WithOne(y => y.Course);
+
+            builder.HasMany(x => x.Enrollments).WithOne(y => y.Course);
+
             builder.HasKey(x => x.Id);
         }
     }
