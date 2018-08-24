@@ -4,11 +4,18 @@ namespace MySchool.Domain.Entities
 {
     public class Enrollment : BasicEntity
     {
-        public int StudentId { get; set; }
+        public Enrollment(int studentId, int courseId, Grade? grade =null)
+        {
+            StudentId = studentId;
+            CourseId = courseId;
+            Grade = grade;
+        }
 
-        public int CourseId { get; set; }
+        public int StudentId { get; private set; }
 
-        public Grade? Grade { get; set; }
+        public int CourseId { get; private set; }
+
+        public Grade? Grade { get; private set; }
 
         public Student Student { get; set; }
 

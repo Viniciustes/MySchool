@@ -2,9 +2,15 @@
 {
     public class OfficeAssignment 
     {
-        public int InstructorID { get; set; }
+        public OfficeAssignment(int instructorID, string location)
+        {
+            InstructorID = instructorID;
+            Location = location;
+        }
 
-        public string Location { get; set; }
+        public int InstructorID { get; private set; }
+
+        public string Location { get; private set; }
 
         public Instructor Instructor { get; set; }
     }

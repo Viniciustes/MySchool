@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MySchool.Domain.Entities
 {
     public class Instructor : BasicEntity
     {
-        public string FirstName { get; set; }
+        public Instructor(string firstName, string lastName, DateTime hireDate)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            HireDate = hireDate;
+        }
 
-        public string LastName { get; set; }
+        public string FirstName { get;  private set; }
 
-        public DateTime HireDate { get; set; }
+        public string LastName { get;  private set; }
+
+        public DateTime HireDate { get; private set; }
 
         public string FullName { get => FirstName + " " + LastName; }
 

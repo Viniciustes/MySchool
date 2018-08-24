@@ -4,13 +4,20 @@ namespace MySchool.Domain.Entities
 {
     public class Course : BasicEntity
     {
-        public string Title { get; set; }
+        public Course(string title, int credits, int departmentId)
+        {
+            Title = title;
+            Credits = credits;
+            DepartmentId = departmentId;
+        }
 
-        public int Credits { get; set; }
+        public string Title { get; private set; }
+
+        public int Credits { get; private set; }
         
-        public int DepartmentId { get; set; }
+        public int DepartmentId { get; private set; }
 
-        public Department Department { get; set; }
+        public Department Department { get; private set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }
 
