@@ -23,7 +23,6 @@ namespace MySchool
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MySchoolContext>(options =>
@@ -31,20 +30,24 @@ namespace MySchool
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddScoped<IServiceCourse, ServiceCourse>();
+            services.AddScoped<IRepositoryCourse, RepositoryCourse>();
+
             services.AddScoped<IServiceStudent, ServiceStudent>();
             services.AddScoped<IRepositoryStudent, RepositoryStudent>();
+
+            services.AddScoped<IServiceInstructor, ServiceInstructor>();
+            services.AddScoped<IRepositoryInstructor, RepositoryInstructor>();
 
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

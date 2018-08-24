@@ -1,39 +1,29 @@
-﻿@model PaginatedListViewModel<StudentViewModel>
+﻿@model PaginatedListViewModel<CourseViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Aluno</h2>
+<h2>Curso</h2>
 
 <p>
-    <a asp-action="Create">Cadastrar novo aluno</a>
+    <a asp-action="Create">Cadastrar novo Curso</a>
 </p>
-
-<form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Procurar por nome: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Procurar" class="btn btn-default" /> |
-            <a asp-action="Index">Voltar para lista</a>
-        </p>
-    </div>
-</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Nome</a>
+                Id
             </th>
             <th>
-                Sobrenome
+                Nome do curso
             </th>
             <th>
-                Nome Completo
+                Créditos
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Data de cadastro</a>
+                Departamento
             </th>
             <th></th>
         </tr>
@@ -43,16 +33,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
+                    @Html.DisplayFor(modelItem => item.Credits)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                    @Html.DisplayFor(modelItem => item.DepartmentViewModel.Name)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
