@@ -19,10 +19,9 @@ namespace MySchool.AutoMapper
                 .ForMember(x => x.DepartmentViewModel, opt => opt.MapFrom(src => src.Department))
                 .ReverseMap();
 
-            CreateMap<InstructorIndexData, InstructorIndexDataViewModel>()
-                .ForMember(x => x.CoursesViewModel, opt => opt.MapFrom(src => src.Courses))
-                .ForMember(x => x.EnrollmentsViewModel, opt => opt.MapFrom(src => src.Enrollments))
-                .ForMember(x => x.InstructorsViewModel, opt => opt.MapFrom(src => src.Instructors))
+            CreateMap<Instructor, InstructorViewModel>()
+                .ForMember(x => x.OfficeAssignmentViewModel, opt => opt.MapFrom(src => src.OfficeAssignment))
+                //.ForMember(x=> x.CourseAssignmentsViewModel, opt => opt.MapFrom(src => src.CourseAssignments))
                 .ReverseMap();
         }
     }

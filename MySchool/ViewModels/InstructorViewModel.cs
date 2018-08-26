@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MySchool.ViewModels
 {
     public class InstructorViewModel
     {
-        public int ID { get; set; }
+        public InstructorViewModel()
+        {
+            CourseAssignmentsViewModel = new List<CourseAssignmentViewModel>();
+        }
+
+        public int Id { get; set; }
 
         [Required]
         [Display(Name = "Last Name")]
@@ -20,7 +23,7 @@ namespace MySchool.ViewModels
         [Column("FirstName")]
         [Display(Name = "First Name")]
         [StringLength(50)]
-        public string FirstMidName { get; set; }
+        public string FirstName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -30,10 +33,11 @@ namespace MySchool.ViewModels
         [Display(Name = "Full Name")]
         public string FullName
         {
-            get { return LastName + ", " + FirstMidName; }
+            get { return LastName + ", " + FirstName; }
         }
 
-        //public ICollection<CourseAssignment> CourseAssignments { get; set; }
-        //public OfficeAssignment OfficeAssignment { get; set; }
+        public ICollection<CourseAssignmentViewModel> CourseAssignmentsViewModel { get; set; }
+
+        public OfficeAssignmentViewModel OfficeAssignmentViewModel { get; set; }
     }
 }

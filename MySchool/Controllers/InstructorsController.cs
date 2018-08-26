@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySchool.Service.Interfaces;
 using MySchool.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MySchool.Controllers
@@ -18,13 +19,33 @@ namespace MySchool.Controllers
             _serviceInstructor = serviceInstructor;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, int? courseId)
         {
-            var instructorIndex = await _serviceInstructor.GetAllAsync();
+            var instructors = await _serviceInstructor.GetAllAsync();
 
-            var vwm = _mapper.Map<IEnumerable<InstructorIndexDataViewModel>>(instructorIndex);
+            var instructorsViewModel = _mapper.Map<IEnumerable<InstructorViewModel>>(instructors);
 
-            return View(instructorIndex);
+            var instructorIndexDataViewModel = new InstructorIndexDataViewModel
+            {
+                InstructorsViewModel = instructorsViewModel
+            };
+
+            if (id != null)
+            {
+                ViewData["InstructorId"] = id.Value;
+
+                var instructor = instructorIndexDataViewModel.InstructorsViewModel.Where(x => x.Id == id.Value).Single();
+
+                instructorIndexDataViewModel.CoursesViewModel = instructor.CourseAssignmentsViewModel.Select(x => x.CourseViewModel);
+            }
+
+            if (courseId != null)
+            {
+                ViewData["CourseId"] = courseId.Value;
+
+                instructorIndexDataViewModel.EnrollmentsViewModel = instructorIndexDataViewModel.CoursesViewModel.Where(x => x.Id == courseId.Value).Single().EnrollmentViewModels;
+            }
+            return View(instructorIndexDataViewModel);
         }
     }
 }

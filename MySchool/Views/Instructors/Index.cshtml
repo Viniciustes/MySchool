@@ -1,7 +1,65 @@
-﻿
+﻿@model InstructorIndexDataViewModel
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Professor";
 }
 
 <h2>Professor</h2>
 
+<p>
+    <a asp-action="Create">Novo Professor</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <th>Data de contratação</th>
+            <th>Office</th>
+            <th>Courses</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InstructorsViewModel)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["InstructorId"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HireDate)
+                </td>
+                <td>
+                    @if (item.OfficeAssignmentViewModel != null)
+                    {
+                        @item.OfficeAssignmentViewModel.Location
+                    }
+                </td>
+                <td>
+                    @{
+                        foreach (var course in item.CourseAssignmentsViewModel)
+                        {
+                            @course.CourseViewModel.Id @:  @course.CourseViewModel.Title <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.Id">Selecionar</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
