@@ -47,9 +47,9 @@
                 </td>
                 <td>
                     @{
-                        foreach (var course in item.CourseAssignmentsViewModel)
+                        foreach (var course in item.CourseAssignments)
                         {
-                            @course.CourseViewModel.Id @:  @course.CourseViewModel.Title <br />
+                            @course.Course.Id @:  @course.Course.Title <br />
                         }
                     }
                 </td>
@@ -63,3 +63,61 @@
         }
     </tbody>
 </table>
+@if (Model.CoursesViewModel != null)
+{
+    <h3>Courses Taught by Selected Instructor</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Department</th>
+        </tr>
+
+        @foreach (var item in Model.CoursesViewModel)
+        {
+            string selectedRow = "";
+            if (item.Id == (int?)ViewData["CourseId"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Index", new { courseID = item.Id })
+                </td>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Department.Name
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.EnrollmentsViewModel != null)
+{
+    <h3>
+        Students Enrolled in Selected Course
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Grade</th>
+        </tr>
+        @foreach (var item in Model.EnrollmentsViewModel)
+        {
+            <tr>
+                <td>
+                    @item.Student.FirstName
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+            </tr>
+        }
+    </table>
+}

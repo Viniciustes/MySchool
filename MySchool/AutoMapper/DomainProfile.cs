@@ -8,6 +8,10 @@ namespace MySchool.AutoMapper
     {
         public DomainProfile()
         {
+            CreateMap<Course, CourseViewModel>()
+                .ForMember(x => x.DepartmentViewModel, opt => opt.MapFrom(src => src.Department))
+                .ReverseMap();
+
             CreateMap<Student, StudentViewModel>()
                 .ForMember(x => x.EnrollmentViewModels, opt => opt.MapFrom(src => src.Enrollments))
                 .ReverseMap();
@@ -15,13 +19,8 @@ namespace MySchool.AutoMapper
             CreateMap<Enrollment, EnrollmentViewModel>()
                 .ReverseMap();
 
-            CreateMap<Course, CourseViewModel>()
-                .ForMember(x => x.DepartmentViewModel, opt => opt.MapFrom(src => src.Department))
-                .ReverseMap();
-
             CreateMap<Instructor, InstructorViewModel>()
                 .ForMember(x => x.OfficeAssignmentViewModel, opt => opt.MapFrom(src => src.OfficeAssignment))
-                //.ForMember(x=> x.CourseAssignmentsViewModel, opt => opt.MapFrom(src => src.CourseAssignments))
                 .ReverseMap();
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySchool.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,11 +8,6 @@ namespace MySchool.ViewModels
 {
     public class InstructorViewModel
     {
-        public InstructorViewModel()
-        {
-            CourseAssignmentsViewModel = new List<CourseAssignmentViewModel>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -36,7 +32,7 @@ namespace MySchool.ViewModels
             get { return LastName + ", " + FirstName; }
         }
 
-        public ICollection<CourseAssignmentViewModel> CourseAssignmentsViewModel { get; set; }
+        public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
         public OfficeAssignmentViewModel OfficeAssignmentViewModel { get; set; }
     }

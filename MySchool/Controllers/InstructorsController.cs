@@ -34,16 +34,16 @@ namespace MySchool.Controllers
             {
                 ViewData["InstructorId"] = id.Value;
 
-                var instructor = instructorIndexDataViewModel.InstructorsViewModel.Where(x => x.Id == id.Value).Single();
+                var instructor = instructorIndexDataViewModel.InstructorsViewModel.Single(x => x.Id == id.Value);
 
-                instructorIndexDataViewModel.CoursesViewModel = instructor.CourseAssignmentsViewModel.Select(x => x.CourseViewModel);
+                instructorIndexDataViewModel.CoursesViewModel = instructor.CourseAssignments.Select(x => x.Course);
             }
 
             if (courseId != null)
             {
                 ViewData["CourseId"] = courseId.Value;
 
-                instructorIndexDataViewModel.EnrollmentsViewModel = instructorIndexDataViewModel.CoursesViewModel.Where(x => x.Id == courseId.Value).Single().EnrollmentViewModels;
+                instructorIndexDataViewModel.EnrollmentsViewModel = instructorIndexDataViewModel.CoursesViewModel.Where(x => x.Id == courseId.Value).Single().Enrollments;
             }
             return View(instructorIndexDataViewModel);
         }

@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using MySchool.Domain.Entities;
+using System.Collections.Generic;
 
 namespace MySchool.ViewModels
 {
     public class InstructorIndexDataViewModel
     {
-        //public InstructorIndexDataViewModel()
-        //{
-        //    CoursesViewModel = new List<CourseViewModel>();
-        //    InstructorsViewModel = new List<InstructorViewModel>();
-        //    EnrollmentsViewModel = new List<EnrollmentViewModel>();
-        //}
+        //TODO Não expor entidades de dominio diretamente na camada de apresentação.
 
-        public IEnumerable<CourseViewModel> CoursesViewModel { get; set; }
+        public IEnumerable<Course> CoursesViewModel { get; set; }
 
         public IEnumerable<InstructorViewModel> InstructorsViewModel { get; set; }
 
-        public IEnumerable<EnrollmentViewModel> EnrollmentsViewModel { get; set; }
+        public IEnumerable<Enrollment> EnrollmentsViewModel { get; set; }
     }
 }
