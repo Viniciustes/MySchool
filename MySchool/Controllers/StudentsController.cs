@@ -31,6 +31,7 @@ namespace MySchool.Controllers
                 searchString = currentFilter;
 
             var students = await _serviceStudent.GetListAsNoTrackingAsyncPaginated(sortOrder, searchString);
+
             var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
 
             return View(PaginatedListViewModel<StudentViewModel>.CreateAsync(studentsViewModel, page ?? 1));
@@ -58,6 +59,7 @@ namespace MySchool.Controllers
             if (ModelState.IsValid)
             {
                 var student = _mapper.Map<Student>(studentViewModel);
+
                 await _serviceStudent.AddAsync(student);
 
                 return RedirectToAction(nameof(Index));
@@ -86,6 +88,7 @@ namespace MySchool.Controllers
             if (ModelState.IsValid)
             {
                 var student = _mapper.Map<Student>(studentViewModel);
+
                 await _serviceStudent.UpdateAsync(student);
 
                 return RedirectToAction(nameof(Index));

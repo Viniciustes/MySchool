@@ -4,9 +4,9 @@ using MySchool.Service.Interfaces;
 
 namespace MySchool.Service.Services
 {
-    public class ServiceInstructor : Service<Instructor>, IServiceInstructor
+    public class ServiceDepartment : Service<Department>, IServiceDepartment
     {
-        public ServiceInstructor(IRepositoryInstructor repositoryInstructor) : base(repositoryInstructor)
+        public ServiceDepartment(IRepositoryDepartment repositoryDepartment) : base(repositoryDepartment)
         {
         }
     }

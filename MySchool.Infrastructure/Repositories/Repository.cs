@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MySchool.Domain.Entities;
@@ -74,6 +75,14 @@ namespace MySchool.Infrastructure.Repositories
         public async Task<int> CountAsync(Entity entity)
         {
             return await _context.Set<Entity>().CountAsync();
+        }
+
+        public IQueryable<Entity> GetAllIQuerableAsNoTracking()
+        {
+            var entities = from d in _context.Set<Entity>()
+                           select d;
+
+            return entities.AsNoTracking();
         }
     }
 }

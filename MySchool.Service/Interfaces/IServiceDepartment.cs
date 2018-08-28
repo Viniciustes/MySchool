@@ -2,7 +2,7 @@
 
 namespace MySchool.Service.Interfaces
 {
-    public interface IServiceInstructor : IService<Instructor>
+    public interface IServiceDepartment : IService<Department>
     {
     }
 }

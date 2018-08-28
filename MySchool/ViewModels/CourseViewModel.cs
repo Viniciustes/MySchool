@@ -10,6 +10,8 @@ namespace MySchool.ViewModels
 
         public int Credits { get; set; }
 
+        public int DepartmentId { get; set; }
+
         public DepartmentViewModel DepartmentViewModel { get; set; }
 
         public ICollection<EnrollmentViewModel> EnrollmentViewModels { get; set; }

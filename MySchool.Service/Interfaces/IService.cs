@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MySchool.Service.Interfaces
@@ -12,5 +13,6 @@ namespace MySchool.Service.Interfaces
         Task UpdateAsync(Entity entity);
         Task DeleteAsync(Entity entity);
         Task<int> CountAsync(Entity entity);
+        IQueryable<Entity> GetAllIQuerableAsNoTracking();
     }
 }

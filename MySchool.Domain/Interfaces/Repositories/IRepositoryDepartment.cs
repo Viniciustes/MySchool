@@ -2,7 +2,7 @@
 
 namespace MySchool.Domain.Interfaces.Repositories
 {
-    public interface IRepositoryInstructor : IRepository<Instructor>
+    public interface IRepositoryDepartment : IRepository<Department>
     {
     }
 }

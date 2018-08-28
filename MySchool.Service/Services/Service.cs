@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MySchool.Domain.Interfaces.Repositories;
 using MySchool.Service.Interfaces;
@@ -47,6 +48,11 @@ namespace MySchool.Service.Services
         public async Task<int> CountAsync(Entity entity)
         {
             return await _repository.CountAsync(entity);
+        }
+
+        public IQueryable<Entity> GetAllIQuerableAsNoTracking()
+        {
+            return _repository.GetAllIQuerableAsNoTracking();
         }
     }
 }

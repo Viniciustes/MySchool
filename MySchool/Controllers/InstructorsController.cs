@@ -39,30 +39,11 @@ namespace MySchool.Controllers
                 instructorIndexDataViewModel.CoursesViewModel = instructor.CourseAssignments.Select(x => x.Course);
             }
 
-            //// Carregamento adiantado
-            //if (courseId != null)
-            //{
-            //    ViewData["CourseId"] = courseId.Value;
-
-            //    instructorIndexDataViewModel.EnrollmentsViewModel = instructorIndexDataViewModel.CoursesViewModel.Where(x => x.Id == courseId.Value).Single().Enrollments;
-            //}
-
-            // Carregamento explícito
-            // Vai várias vezes no banco de dados no foreach
-            // Pouca performace
             if (courseId != null)
             {
                 ViewData["CourseId"] = courseId.Value;
 
-                var selectedCourse = instructorIndexDataViewModel.CoursesViewModel.Single(x => x.Id == courseId);
-
-                await _serviceInstructor.GetCourse(selectedCourse);
-                foreach (var enrollment in selectedCourse.Enrollments)
-                {
-                    await _serviceInstructor.GetEnrollment(enrollment);
-                }
-
-                instructorIndexDataViewModel.EnrollmentsViewModel = selectedCourse.Enrollments;
+                instructorIndexDataViewModel.EnrollmentsViewModel = instructorIndexDataViewModel.CoursesViewModel.Where(x => x.Id == courseId.Value).Single().Enrollments;
             }
 
             return View(instructorIndexDataViewModel);
