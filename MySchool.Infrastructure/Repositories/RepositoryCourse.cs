@@ -15,5 +15,14 @@ namespace MySchool.Infrastructure.Repositories
         {
             return await _context.Courses.Include(x => x.Department).AsNoTracking().ToListAsync();
         }
+
+        public new async Task<Course> GetByIdAsNoTrackingAsync(int id)
+        {
+            return await
+                _context.Courses
+                .Include(x=> x.Department)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

@@ -5,12 +5,12 @@ namespace MySchool.Domain.Entities
 {
     public class Department : BasicEntity
     {
-        public Department(string name, decimal budget, DateTime startDate, int? instructorID)
+        public Department(string name, decimal budget, DateTime startDate, int? instructorId)
         {
             Name = name;
             Budget = budget;
             StartDate = startDate;
-            InstructorID = instructorID;
+            InstructorId = instructorId;
         }
 
         public string Name { get; private set; }
@@ -19,7 +19,7 @@ namespace MySchool.Domain.Entities
 
         public DateTime StartDate { get; private set; }
 
-        public int? InstructorID { get; private set; }
+        public int? InstructorId { get; private set; }
 
         public Instructor Administrator { get; set; }
 

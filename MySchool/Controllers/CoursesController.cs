@@ -56,17 +56,21 @@ namespace MySchool.Controllers
             return View(courseViewModel);
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            return await ReturnCourseViewModelById(id);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            return await ReturnCourseViewModelById(id);
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-                return NotFound();
+            var courseViewModel = await GetCourseViewModelById(id);
 
-            var course = await _serviceCourse.GetByIdAsNoTrackingAsync((int)id);
-
-            if (course == null)
-                return NotFound();
-
-            var courseViewModel = _mapper.Map<CourseViewModel>(course);
+            if (courseViewModel == null) return NotFound();
 
             PopulateDepartmentsDropDownList(courseViewModel.DepartmentId);
 
@@ -94,11 +98,33 @@ namespace MySchool.Controllers
             return View(courseViewModel);
         }
 
+        #region private methods
+        private async Task<CourseViewModel> GetCourseViewModelById(int? id)
+        {
+            if (id == null) return null;
+
+            var course = await _serviceCourse.GetByIdAsNoTrackingAsync((int)id);
+
+            if (course == null) return null;
+
+            return _mapper.Map<CourseViewModel>(course);
+        }
+
+        private async Task<IActionResult> ReturnCourseViewModelById(int? id)
+        {
+            var courseViewModel = await GetCourseViewModelById(id);
+
+            if (courseViewModel == null) return NotFound();
+
+            return View(courseViewModel);
+        }
+
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
         {
             var departmentsQuery = _serviceDepartment.GetAllIQuerableAsNoTracking();
 
-            ViewBag.DepartmentId = new SelectList(departmentsQuery, "DepartmentId", "Name", selectedDepartment);
+            ViewBag.DepartmentId = new SelectList(departmentsQuery, "Id", "Name", selectedDepartment);
         }
+        #endregion
     }
 }

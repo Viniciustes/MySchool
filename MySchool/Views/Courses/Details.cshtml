@@ -1,0 +1,43 @@
+﻿@model CourseViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do curso";
+}
+
+<h2>Curso</h2>
+
+<div>
+    <h4>Detalhes do Curso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Credits)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Credits)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentViewModel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentViewModel.Name)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Voltar</a>
+</div>
