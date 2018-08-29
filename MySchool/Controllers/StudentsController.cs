@@ -97,7 +97,7 @@ namespace MySchool.Controllers
             return View(studentViewModel);
         }
 
-        public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -111,7 +111,7 @@ namespace MySchool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _serviceStudent.GetByIdAsNoTrackingAsync(id);
+            var student = await _serviceStudent.GetByIdAsync(id);
 
             await _serviceStudent.DeleteAsync(student);
 

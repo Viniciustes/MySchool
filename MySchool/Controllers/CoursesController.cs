@@ -66,6 +66,17 @@ namespace MySchool.Controllers
             return await ReturnCourseViewModelById(id);
         }
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var course = await _serviceCourse.GetByIdAsync(id);
+
+            await _serviceCourse.DeleteAsync(course);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Edit(int? id)
         {
             var courseViewModel = await GetCourseViewModelById(id);
@@ -79,7 +90,7 @@ namespace MySchool.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, [Bind("CourseId", "Credits", "DepartmentId", "Title")] CourseViewModel courseViewModel)
+        public async Task<IActionResult> EditPost(int id, [Bind("Id", "Credits", "DepartmentId", "Title")] CourseViewModel courseViewModel)
         {
             if (id != courseViewModel.Id)
                 return NotFound();
