@@ -2,13 +2,13 @@
 {
     public class OfficeAssignment 
     {
-        public OfficeAssignment(int instructorID, string location)
+        public OfficeAssignment(int instructorId, string location)
         {
-            InstructorID = instructorID;
+            InstructorId = instructorId;
             Location = location;
         }
 
-        public int InstructorID { get; private set; }
+        public int InstructorId { get; private set; }
 
         public string Location { get; private set; }
 

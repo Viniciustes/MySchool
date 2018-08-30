@@ -10,7 +10,7 @@ namespace MySchool.Infrastructure.Mappings
         {
             builder.ToTable("OfficeAssignment");
 
-            builder.HasKey(x => x.InstructorID);
+            builder.HasKey(x => x.InstructorId);
 
             builder.Property(x => x.Location)
               .HasMaxLength(30);

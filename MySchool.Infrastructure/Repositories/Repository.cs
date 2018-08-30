@@ -41,6 +41,7 @@ namespace MySchool.Infrastructure.Repositories
             //SELECT @@ROWCOUNT;
         }
 
+
         public async Task<IEnumerable<Entity>> GetAllAsync()
         {
             return await _context.Set<Entity>().AsNoTracking().ToListAsync();
@@ -83,6 +84,16 @@ namespace MySchool.Infrastructure.Repositories
                            select d;
 
             return entities.AsNoTracking();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Entity> GettAll()
+        {
+            return _context.Set<Entity>();
         }
     }
 }

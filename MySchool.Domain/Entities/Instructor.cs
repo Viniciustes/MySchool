@@ -12,9 +12,18 @@ namespace MySchool.Domain.Entities
             HireDate = hireDate;
         }
 
-        public string FirstName { get;  private set; }
+        public Instructor(int id, string firstName, string lastName, DateTime hireDate, OfficeAssignment officeAssignment)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            HireDate = hireDate;
+            OfficeAssignment = officeAssignment;
+        }
 
-        public string LastName { get;  private set; }
+        public string FirstName { get; private set; }
+
+        public string LastName { get; private set; }
 
         public DateTime HireDate { get; private set; }
 

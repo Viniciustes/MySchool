@@ -54,5 +54,15 @@ namespace MySchool.Service.Services
         {
             return _repository.GetAllIQuerableAsNoTracking();
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await _repository.SaveChangesAsync();
+        }
+
+        public IEnumerable<Entity> GettAll()
+        {
+            return _repository.GettAll();
+        }
     }
 }

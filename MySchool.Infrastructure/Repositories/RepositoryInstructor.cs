@@ -27,5 +27,22 @@ namespace MySchool.Infrastructure.Repositories
                 .OrderBy(x => x.FirstName)
                 .ToListAsync();
         }
+
+        public new async Task<Instructor> GetByIdAsync(int id)
+        {
+            return await _context.Instructors
+                .Include(x => x.OfficeAssignment)
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public new async Task<Instructor> GetByIdAsNoTrackingAsync(int id)
+        {
+            return await _context.Instructors
+                .Include(x => x.OfficeAssignment)
+                .Include(x => x.CourseAssignments)
+                    .ThenInclude(x => x.Course)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

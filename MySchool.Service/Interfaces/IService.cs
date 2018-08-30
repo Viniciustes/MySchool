@@ -6,6 +6,7 @@ namespace MySchool.Service.Interfaces
 {
     public interface IService<Entity> where Entity : class
     {
+        IEnumerable<Entity> GettAll();
         Task<IEnumerable<Entity>> GetAllAsync();
         Task<Entity> GetByIdAsNoTrackingAsync(int id);
         Task<Entity> GetByIdAsync(int id);
@@ -14,5 +15,6 @@ namespace MySchool.Service.Interfaces
         Task DeleteAsync(Entity entity);
         Task<int> CountAsync(Entity entity);
         IQueryable<Entity> GetAllIQuerableAsNoTracking();
+        Task SaveChangesAsync();
     }
 }
