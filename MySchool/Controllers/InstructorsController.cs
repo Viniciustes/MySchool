@@ -72,8 +72,10 @@ namespace MySchool.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int id, [Bind("Id", "FirstName", "LastName", "HireDate", "OfficeAssignmentViewModel")] InstructorViewModel instructorViewModel)
+        public async Task<IActionResult> EditPost(int id, [Bind("Id", "FirstName", "LastName", "HireDate", "OfficeAssignmentViewModel")] InstructorViewModel instructorViewModel, string[] selectedCourses)
         {
+            //TODO Atualizar selectedCourses
+
             if (id != instructorViewModel.Id)
                 NotFound();
 
