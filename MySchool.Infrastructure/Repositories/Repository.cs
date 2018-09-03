@@ -41,6 +41,11 @@ namespace MySchool.Infrastructure.Repositories
             //SELECT @@ROWCOUNT;
         }
 
+        public void Delete(Entity entity)
+        {
+            _context.Set<Entity>().Remove(entity);
+            _context.SaveChanges();
+        }
 
         public async Task<IEnumerable<Entity>> GetAllAsync()
         {

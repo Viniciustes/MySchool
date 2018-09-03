@@ -1,0 +1,68 @@
+﻿@model InstructorViewModel
+
+@{
+    ViewData["Title"] = "Apagar professor";
+}
+
+<h2>Professor</h2>
+
+<h3>Tem certeza que deseja apagar o cadastro desse professor?</h3>
+<div>
+    <h4>Curso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeAssignmentViewModel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OfficeAssignmentViewModel.Location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseAssignmentViewModels)
+        </dt>
+        <dd>
+            @if (Model.CourseAssignmentViewModels.Any())
+            {
+                <table>
+                    @foreach (var item in Model.CourseAssignmentViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseViewModel.Title)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Esse professor não está em nenhum curso.</p>
+            }
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Apagar professor" class="btn btn-default" /> |
+            <a asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>

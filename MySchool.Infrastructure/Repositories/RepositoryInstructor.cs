@@ -31,8 +31,10 @@ namespace MySchool.Infrastructure.Repositories
         public new async Task<Instructor> GetByIdAsync(int id)
         {
             return await _context.Instructors
-                .Include(x => x.OfficeAssignment)
-                .SingleOrDefaultAsync(x => x.Id == id);
+               .Include(i => i.OfficeAssignment)
+               .Include(i => i.CourseAssignments)
+                   .ThenInclude(i => i.Course)
+               .SingleOrDefaultAsync(m => m.Id == id);
         }
 
         public new async Task<Instructor> GetByIdAsNoTrackingAsync(int id)
@@ -43,6 +45,23 @@ namespace MySchool.Infrastructure.Repositories
                     .ThenInclude(x => x.Course)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task Delete(int id)
+        {
+            var instructor = await _context.Instructors
+                .Include(i => i.CourseAssignments)
+                .SingleAsync(i => i.Id == id);
+
+            var departments = await _context.Departments
+                .Where(d => d.InstructorId == id)
+                .ToListAsync();
+
+            departments.ForEach(d => d.InstructorId = null);
+
+            _context.Instructors.Remove(instructor);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

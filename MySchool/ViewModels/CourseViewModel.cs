@@ -5,6 +5,18 @@ namespace MySchool.ViewModels
 {
     public class CourseViewModel
     {
+        //Para utilizacão do Auto Mapper necessita do construtor abaixo.
+        public CourseViewModel(){}
+
+        public CourseViewModel(int id, string title, int credits, int departmentId, DepartmentViewModel departmentViewModel)
+        {
+            Id = id;
+            Title = title;
+            Credits = credits;
+            DepartmentId = departmentId;
+            DepartmentViewModel = departmentViewModel;
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }

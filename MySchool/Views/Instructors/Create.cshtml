@@ -1,17 +1,17 @@
 ﻿@model InstructorViewModel
 
+@{
+    ViewData["Title"] = "Cadastrar Professor";
+}
+
 <h2>Professor</h2>
 
-<h4>Alterar Professor</h4>
+<h4>Cadastrar Professor</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <div>@Html.DisplayFor(model => model.Id)</div>
-            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -21,11 +21,6 @@
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HireDate" class="control-label"></label>
-                <input asp-for="HireDate" class="form-control" />
-                <span asp-validation-for="HireDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OfficeAssignmentViewModel.Location" class="control-label"></label>
@@ -58,7 +53,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Alterar professor" class="btn btn-default" />
+                <input type="submit" value="Cadastrar professor" class="btn btn-default" />
             </div>
         </form>
     </div>

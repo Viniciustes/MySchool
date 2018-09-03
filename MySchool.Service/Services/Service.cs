@@ -64,5 +64,10 @@ namespace MySchool.Service.Services
         {
             return _repository.GettAll();
         }
+
+        public void Delete(Entity entity)
+        {
+            _repository.Delete(entity);
+        }
     }
 }

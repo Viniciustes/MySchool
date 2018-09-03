@@ -16,13 +16,13 @@
             <th>Nome</th>
             <th>Sobrenome</th>
             <th>Data de contratação</th>
-            <th>Office</th>
-            <th>Courses</th>
+            <th>Escritório</th>
+            <th>Cursos</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.InstructorsViewModel)
+        @foreach (var item in Model.InstructorsViewModels)
         {
             string selectedRow = "";
             if (item.Id == (int?)ViewData["InstructorId"])
@@ -47,9 +47,9 @@
                 </td>
                 <td>
                     @{
-                        foreach (var course in item.CourseAssignments)
+                        foreach (var course in item.CourseAssignmentViewModels)
                         {
-                            @course.Course.Id @:  @course.Course.Title <br />
+                            @course.CourseViewModel.Id @:  @course.CourseViewModel.Title <br />
                         }
                     }
                 </td>
@@ -63,18 +63,18 @@
         }
     </tbody>
 </table>
-@if (Model.CoursesViewModel != null)
+@if (Model.CourseViewModels != null)
 {
-    <h3>Courses Taught by Selected Instructor</h3>
+    <h3>Cursos que são ministrados por professor selecionado</h3>
     <table class="table">
         <tr>
             <th></th>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Department</th>
+            <th>Código curso</th>
+            <th>Nome do curso</th>
+            <th>Área do curso</th>
         </tr>
 
-        @foreach (var item in Model.CoursesViewModel)
+        @foreach (var item in Model.CourseViewModels)
         {
             string selectedRow = "";
             if (item.Id == (int?)ViewData["CourseId"])
@@ -83,7 +83,7 @@
             }
             <tr class="@selectedRow">
                 <td>
-                    @Html.ActionLink("Select", "Index", new { courseID = item.Id })
+                    @Html.ActionLink("Selecionar", "Index", new { courseId = item.Id })
                 </td>
                 <td>
                     @item.Id
@@ -92,27 +92,27 @@
                     @item.Title
                 </td>
                 <td>
-                    @item.Department.Name
+                    @item.DepartmentViewModel.Name
                 </td>
             </tr>
         }
     </table>
 }
-@if (Model.EnrollmentsViewModel != null)
+@if (Model.EnrollmentViewModels != null)
 {
     <h3>
-        Students Enrolled in Selected Course
+        Alunos matrículados no curso
     </h3>
     <table class="table">
         <tr>
-            <th>Name</th>
-            <th>Grade</th>
+            <th>Nome do aluno</th>
+            <th>Nota</th>
         </tr>
-        @foreach (var item in Model.EnrollmentsViewModel)
+        @foreach (var item in Model.EnrollmentViewModels)
         {
             <tr>
                 <td>
-                    @item.Student.FirstName
+                    @item.StudentViewModel.FirstName
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Grade)

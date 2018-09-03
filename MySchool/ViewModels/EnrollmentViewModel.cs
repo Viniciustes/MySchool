@@ -7,5 +7,7 @@ namespace MySchool.ViewModels
         public Grade? Grade { get; set; }
 
         public string CourseTitle { get; set; }
+
+        public StudentViewModel StudentViewModel { get; set; }
     }
 }

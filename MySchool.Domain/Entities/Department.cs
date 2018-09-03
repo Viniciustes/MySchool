@@ -19,7 +19,7 @@ namespace MySchool.Domain.Entities
 
         public DateTime StartDate { get; private set; }
 
-        public int? InstructorId { get; private set; }
+        public int? InstructorId { get; set; }
 
         public Instructor Administrator { get; set; }
 

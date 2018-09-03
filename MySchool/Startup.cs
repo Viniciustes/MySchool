@@ -46,6 +46,9 @@ namespace MySchool
             services.AddScoped<IServiceDepartment, ServiceDepartment>();
             services.AddScoped<IRepositoryDepartment, RepositoryDepartment>();
 
+            services.AddScoped<IServiceCourseAssignment, ServiceCourseAssignment>();
+            services.AddScoped<IRepositoryCourseAssignment, RepositoryCourseAssignment>();
+
             services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

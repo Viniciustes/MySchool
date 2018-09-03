@@ -1,6 +1,6 @@
 ﻿namespace MySchool.Domain.Entities
 {
-    public class OfficeAssignment 
+    public class OfficeAssignment
     {
         public OfficeAssignment(int instructorId, string location)
         {

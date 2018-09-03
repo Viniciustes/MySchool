@@ -16,5 +16,6 @@ namespace MySchool.Domain.Interfaces.Repositories
         Task<int> CountAsync(Entity entity);
         IQueryable<Entity> GetAllIQuerableAsNoTracking();
         Task SaveChangesAsync();
+        void Delete(Entity entity);
     }
 }
