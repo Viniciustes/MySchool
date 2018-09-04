@@ -4,6 +4,7 @@ using MySchool.Domain.Entities;
 using MySchool.Service.Interfaces;
 using MySchool.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MySchool.Controllers
@@ -19,21 +20,9 @@ namespace MySchool.Controllers
             _serviceStudent = serviceStudent;
         }
 
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-
-            if (!string.IsNullOrEmpty(searchString))
-                page = 1;
-            else
-                searchString = currentFilter;
-
-            var students = await _serviceStudent.GetListAsNoTrackingAsyncPaginated(sortOrder, searchString);
-
-            var studentsViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(students);
-
+            var studentsViewModel = GetAllStudentsPaginated(sortOrder, currentFilter, searchString, page);
             return View(PaginatedListViewModel<StudentViewModel>.CreateAsync(studentsViewModel, page ?? 1));
         }
 
@@ -118,6 +107,7 @@ namespace MySchool.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region private methods
         private async Task<StudentViewModel> GetByIdAsNoTrackingAsync(int id)
         {
             var student = await _serviceStudent.GetByIdAsNoTrackingAsync(id);
@@ -126,5 +116,41 @@ namespace MySchool.Controllers
 
             return studentsViewModel;
         }
+
+        private IEnumerable<StudentViewModel> GetAllStudentsPaginated(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (!string.IsNullOrEmpty(searchString))
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            var students = _serviceStudent.GetAllIQuerableAsNoTracking();
+
+            if (!string.IsNullOrEmpty(searchString))
+                students = students.Where(x => x.FirstName.ToLower().Contains(searchString.ToLower()) || x.LastName.ToLower().Contains(searchString.ToLower()));
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.FirstName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.FirstName);
+                    break;
+            }
+
+            return _mapper.Map<IEnumerable<StudentViewModel>>(students);
+        }
+        #endregion
     }
 }

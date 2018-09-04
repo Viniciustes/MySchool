@@ -85,8 +85,8 @@ namespace MySchool.Infrastructure.Repositories
 
         public IQueryable<Entity> GetAllIQuerableAsNoTracking()
         {
-            var entities = from d in _context.Set<Entity>()
-                           select d;
+            var entities = from e in _context.Set<Entity>()
+                           select e;
 
             return entities.AsNoTracking();
         }

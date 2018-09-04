@@ -33,38 +33,5 @@ namespace MySchool.Infrastructure.Repositories
             //	) AS [t] ON [e.Enrollments].[StudentId] = [t].[Id]
             //	ORDER BY [t].[Id]
         }
-
-        public async Task<IList<Student>> GetListAsNoTrackingAsyncPaginated(string sortOrder, string searchString)
-        {
-            var students = from s in _context.Students
-                           select s;
-
-            if (!string.IsNullOrEmpty(searchString))
-                students = students.Where(x => x.FirstName.ToLower().Contains(searchString.ToLower()) || x.LastName.ToLower().Contains(searchString.ToLower()));
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    students = students.OrderByDescending(s => s.FirstName);
-                    break;
-                case "Date":
-                    students = students.OrderBy(s => s.EnrollmentDate);
-                    break;
-                case "date_desc":
-                    students = students.OrderByDescending(s => s.EnrollmentDate);
-                    break;
-                default:
-                    students = students.OrderBy(s => s.FirstName);
-                    break;
-            }
-            return await students.AsNoTracking().ToListAsync();
-
-            // Consulta a banco de dados apenas vai ao banco após o ToList()
-
-            // Select da consulta abaixo:
-            // SELECT[s].[Id], [s].[EnrollmentDate], [s].[FirstName], [s].[LastName]
-            // FROM[Student] AS[s]
-            // ORDER BY[s].[FirstName]
-        }
     }
 }
