@@ -62,7 +62,7 @@ namespace MySchool.Controllers
 
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost([Bind("FirstName, HireDate, LastName, OfficeAssignment")] InstructorViewModel instructorViewModel, string[] selectedCourses)
+        public async Task<IActionResult> CreatePost([Bind("FirstName, HireDate, LastName, OfficeAssignmentViewModel")] InstructorViewModel instructorViewModel, string[] selectedCourses)
         {
             if (selectedCourses.Any())
             {
@@ -80,6 +80,15 @@ namespace MySchool.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
+            PopulateAssignedCourseData(instructorViewModel);
+
+            return View(instructorViewModel);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var instructorViewModel = await GetInstructorViewModelById(id);
 
             PopulateAssignedCourseData(instructorViewModel);
 

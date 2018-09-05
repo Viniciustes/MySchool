@@ -16,6 +16,11 @@ namespace MySchool.Domain.Entities
 
         public string LastName { get; private set; }
 
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+
         public DateTime HireDate { get; private set; }
 
         // Tabela many for many 

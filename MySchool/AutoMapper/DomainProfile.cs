@@ -19,6 +19,9 @@ namespace MySchool.AutoMapper
             CreateMap<Enrollment, EnrollmentViewModel>()
                 .ReverseMap();
 
+            CreateMap<OfficeAssignment, OfficeAssignmentViewModel>()
+                .ReverseMap();
+
             CreateMap<CourseAssignment, CourseAssignmentViewModel>()
                 .ForMember(x => x.CourseViewModel, opt => opt.MapFrom(src => src.Course))
                 .ForMember(x => x.InstructorViewModel, opt => opt.MapFrom(src => src.Instructor))

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MySchool.Service.Interfaces;
 using MySchool.ViewModels;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace MySchool.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IServiceDepartment _serviceDepartment;
+        private readonly IServiceInstructor _serviceInstructor;
 
-        public DepartmentsController(IMapper mapper, IServiceDepartment serviceDepartment)
+        public DepartmentsController(IMapper mapper, IServiceDepartment serviceDepartment, IServiceInstructor serviceInstructor)
         {
             _mapper = mapper;
             _serviceDepartment = serviceDepartment;
+            _serviceInstructor = serviceInstructor;
         }
 
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -24,6 +27,15 @@ namespace MySchool.Controllers
             var departmentsViewModel = await GetAllDepartmentsPaginated(sortOrder, currentFilter, searchString, page);
 
             return View(PaginatedListViewModel<DepartmentViewModel>.CreateAsync(departmentsViewModel, page ?? 1));
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            var departmentViewModel = new DepartmentViewModel();
+
+            ViewData["Instructor"] = new SelectList(await _serviceInstructor.GetAllAsync(), "Id", "FullName", departmentViewModel.InstructorId);
+
+                return View();
         }
 
         #region private methods

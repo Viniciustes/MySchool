@@ -24,6 +24,9 @@ namespace MySchool.Infrastructure.Mappings
 
             builder.Property(x => x.Budget)
                .HasColumnType("money");
+
+            builder.Property(x => x.RowVersion)
+                .IsConcurrencyToken();
         }
     }
 }
