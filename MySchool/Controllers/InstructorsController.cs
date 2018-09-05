@@ -28,10 +28,7 @@ namespace MySchool.Controllers
         {
             var instructors = await _serviceInstructor.GetAllAsync();
 
-            var instructorsViewModel = instructors
-                .Select(
-                    instructor => new InstructorViewModel(instructor)
-                ).ToList();
+            var instructorsViewModel = _mapper.Map<IEnumerable<InstructorViewModel>>(instructors);
 
             var instructorIndexDataViewModel = new InstructorIndexDataViewModel(instructorsViewModel);
 
@@ -65,20 +62,19 @@ namespace MySchool.Controllers
 
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost([Bind("FirstName,HireDate,LastName,OfficeAssignment")] InstructorViewModel instructorViewModel, string[] selectedCourses)
+        public async Task<IActionResult> CreatePost([Bind("FirstName, HireDate, LastName, OfficeAssignment")] InstructorViewModel instructorViewModel, string[] selectedCourses)
         {
             if (selectedCourses.Any())
             {
-                foreach (var course in selectedCourses)
-                {
-                    var courseToAdd = new CourseAssignmentViewModel(int.Parse(course), instructorViewModel.Id);
-                    instructorViewModel.CourseAssignmentViewModels.Add(courseToAdd);
-                }
+                instructorViewModel.CourseAssignmentViewModels = selectedCourses
+                    .Select(
+                        course => new CourseAssignmentViewModel(int.Parse(course), instructorViewModel.Id)
+                    ).ToList();
             }
 
             if (ModelState.IsValid)
             {
-                var instructor = new Instructor(instructorViewModel.FirstName, instructorViewModel.LastName, instructorViewModel.HireDate);
+                var instructor = _mapper.Map<Instructor>(instructorViewModel);
 
                 await _serviceInstructor.AddAsync(instructor);
 
@@ -92,13 +88,7 @@ namespace MySchool.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) NotFound();
-
-            var instructor = await _serviceInstructor.GetByIdAsNoTrackingAsync((int)id);
-
-            if (instructor == null) NotFound();
-
-            var instructorViewModel = _mapper.Map<InstructorViewModel>(instructor);
+            var instructorViewModel = await GetInstructorViewModelById(id);
 
             PopulateAssignedCourseData(instructorViewModel);
 
@@ -141,9 +131,7 @@ namespace MySchool.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            var instructor = await _serviceInstructor.GetByIdAsNoTrackingAsync((int)id);
-
-            var instructorViewModel = new InstructorViewModel(instructor);
+            var instructorViewModel = await GetInstructorViewModelById(id);
 
             return View(instructorViewModel);
         }
@@ -206,6 +194,17 @@ namespace MySchool.Controllers
                         Assigned = instructorCourses.Contains(course.Id)
                     }
                     ).ToList();
+        }
+
+        private async Task<InstructorViewModel> GetInstructorViewModelById(int? id)
+        {
+            if (id == null) NotFound();
+
+            var instructor = await _serviceInstructor.GetByIdAsNoTrackingAsync((int)id);
+
+            if (instructor == null) NotFound();
+
+            return _mapper.Map<InstructorViewModel>(instructor);
         }
         #endregion
     }

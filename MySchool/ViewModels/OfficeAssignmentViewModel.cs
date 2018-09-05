@@ -2,6 +2,8 @@
 {
     public class OfficeAssignmentViewModel
     {
+        public OfficeAssignmentViewModel() { }
+
         public OfficeAssignmentViewModel(int instructorId, string location)
         {
             InstructorId = instructorId;

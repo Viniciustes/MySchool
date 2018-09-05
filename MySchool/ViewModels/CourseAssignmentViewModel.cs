@@ -2,6 +2,8 @@
 {
     public class CourseAssignmentViewModel
     {
+        public CourseAssignmentViewModel() { }
+
         public CourseAssignmentViewModel(int courseId, int instructorId)
         {
             CourseId = courseId;
