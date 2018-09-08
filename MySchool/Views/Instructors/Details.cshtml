@@ -1,0 +1,64 @@
+﻿@model InstructorViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do Professor";
+}
+
+<h2>Aluno</h2>
+
+<div>
+    <h4>Detalhes do aluno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeAssignmentViewModel.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OfficeAssignmentViewModel.Location)
+        </dd>
+        <dt>
+            Cursos ministrados
+        </dt>
+        <dd>
+            @if (Model.CourseAssignmentViewModels.Any())
+            {
+                <table class="table">
+                    @foreach (var item in Model.CourseAssignmentViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseViewModel.Title)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Esse professor não ministra nenhum curso.</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Voltar</a>
+</div>

@@ -54,7 +54,7 @@ namespace MySchool.ViewModels
         [Display(Name = "Nome Completo")]
         public string FullName
         {
-            get { return LastName + ", " + FirstName; }
+            get { return FirstName + ", " + LastName; }
         }
 
         [Display(Name = "Cursos")]

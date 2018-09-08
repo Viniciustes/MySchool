@@ -1,4 +1,6 @@
-﻿namespace MySchool.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MySchool.ViewModels
 {
     public class OfficeAssignmentViewModel
     {
@@ -12,6 +14,7 @@
 
         public int InstructorId { get; set; }
 
+        [Display(Name = "Escritório")]
         public string Location { get; set; }
     }
 }
