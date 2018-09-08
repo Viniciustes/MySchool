@@ -22,7 +22,7 @@ namespace MySchool.Controllers
 
         public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var studentsViewModel = GetAllStudentsPaginated(sortOrder, currentFilter, searchString, page);
+            var studentsViewModel = GetAllStudentsPaginated(sortOrder, currentFilter, searchString);
             return View(PaginatedListViewModel<StudentViewModel>.CreateAsync(studentsViewModel, page ?? 1));
         }
 
@@ -45,16 +45,14 @@ namespace MySchool.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName")] StudentViewModel studentViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                var student = _mapper.Map<Student>(studentViewModel);
+            if (!ModelState.IsValid) return View(studentViewModel);
 
-                await _serviceStudent.AddAsync(student);
+            var student = _mapper.Map<Student>(studentViewModel);
 
-                return RedirectToAction(nameof(Index));
-            }
+            await _serviceStudent.AddAsync(student);
 
-            return View(studentViewModel);
+            return RedirectToAction(nameof(Index));
+
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -117,15 +115,13 @@ namespace MySchool.Controllers
             return studentsViewModel;
         }
 
-        private IEnumerable<StudentViewModel> GetAllStudentsPaginated(string sortOrder, string currentFilter, string searchString, int? page)
+        private IEnumerable<StudentViewModel> GetAllStudentsPaginated(string sortOrder, string currentFilter, string searchString)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
-            if (!string.IsNullOrEmpty(searchString))
-                page = 1;
-            else
+            if (string.IsNullOrEmpty(searchString))
                 searchString = currentFilter;
 
             var students = _serviceStudent.GetAllIQuerableAsNoTracking();
