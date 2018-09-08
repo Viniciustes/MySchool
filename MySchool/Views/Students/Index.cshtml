@@ -11,7 +11,7 @@
 </p>
 
 <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
+    <div>
         <p>
             Procurar por nome: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
             <input type="submit" value="Procurar" class="btn btn-default" /> |
@@ -24,7 +24,7 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Nome</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSort"]">Nome</a>
             </th>
             <th>
                 Sobrenome
@@ -33,7 +33,7 @@
                 Nome Completo
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">Data de cadastro</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSort"]">Data de cadastro</a>
             </th>
             <th></th>
         </tr>

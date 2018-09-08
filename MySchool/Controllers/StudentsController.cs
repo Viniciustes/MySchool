@@ -52,7 +52,6 @@ namespace MySchool.Controllers
             await _serviceStudent.AddAsync(student);
 
             return RedirectToAction(nameof(Index));
-
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -72,16 +71,13 @@ namespace MySchool.Controllers
             if (id != studentViewModel.Id)
                 return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                var student = _mapper.Map<Student>(studentViewModel);
+            if (!ModelState.IsValid) return View(studentViewModel);
 
-                await _serviceStudent.UpdateAsync(student);
+            var student = _mapper.Map<Student>(studentViewModel);
 
-                return RedirectToAction(nameof(Index));
-            }
+            await _serviceStudent.UpdateAsync(student);
 
-            return View(studentViewModel);
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -118,8 +114,8 @@ namespace MySchool.Controllers
         private IEnumerable<StudentViewModel> GetAllStudentsPaginated(string sortOrder, string currentFilter, string searchString)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParm"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["NameSort"] = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["DateSort"] = sortOrder == "Date" ? "date_desc" : "Date";
 
             if (string.IsNullOrEmpty(searchString))
                 searchString = currentFilter;

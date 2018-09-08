@@ -11,6 +11,7 @@ namespace MySchool.ViewModels
         public DepartmentViewModel(string name)
         {
             Name = name;
+            StartDate = DateTime.Now;
         }
 
         public int Id { get; set; }
@@ -19,7 +20,7 @@ namespace MySchool.ViewModels
 
         public decimal Budget { get; set; }
 
-        public DateTime StartDate { get; private set; }
+        public DateTime StartDate { get; }
 
         public int? InstructorId { get; set; }
 
