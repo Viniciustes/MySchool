@@ -6,7 +6,7 @@ namespace MySchool.Infrastructure.Contexts
 {
     public class MySchoolContext : DbContext
     {
-        public MySchoolContext(DbContextOptions<MySchoolContext> options) : base(options) { }
+        public MySchoolContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Student> Students { get; set; }
 
@@ -22,6 +22,8 @@ namespace MySchool.Infrastructure.Contexts
 
         public DbSet<Department> Departments { get; set; }
 
+        public DbSet<Person> Persons { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Para utilizar configuração em linha, usar conforme comentado abaixo:
@@ -35,6 +37,7 @@ namespace MySchool.Infrastructure.Contexts
             modelBuilder.ApplyConfiguration(new CourseAssignmentMappingConfiguration());
             modelBuilder.ApplyConfiguration(new InstructorMappingConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentMappingConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonMappingConfiguration());
         }
     }
 }

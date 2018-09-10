@@ -4,7 +4,7 @@ using MySchool.Domain.Entities;
 
 namespace MySchool.Infrastructure.Mappings
 {
-    class DepartmentMappingConfiguration : IEntityTypeConfiguration<Department>
+    internal class DepartmentMappingConfiguration : IEntityTypeConfiguration<Department>
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {

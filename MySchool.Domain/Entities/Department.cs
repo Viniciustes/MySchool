@@ -5,6 +5,8 @@ namespace MySchool.Domain.Entities
 {
     public class Department : BasicEntity
     {
+        public Department() { }
+
         public Department(string name, decimal budget, DateTime startDate, int? instructorId)
         {
             Name = name;

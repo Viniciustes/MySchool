@@ -4,7 +4,7 @@ using MySchool.Domain.Entities;
 
 namespace MySchool.Infrastructure.Mappings
 {
-    class EnrollmentMappingConfiguration : IEntityTypeConfiguration<Enrollment>
+    internal class EnrollmentMappingConfiguration : IEntityTypeConfiguration<Enrollment>
     {
         public void Configure(EntityTypeBuilder<Enrollment> builder)
         {

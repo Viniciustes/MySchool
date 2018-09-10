@@ -4,7 +4,7 @@ using MySchool.Domain.Entities;
 
 namespace MySchool.Infrastructure.Mappings
 {
-    class CourseMappingConfiguration : IEntityTypeConfiguration<Course>
+    internal class CourseMappingConfiguration : IEntityTypeConfiguration<Course>
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {

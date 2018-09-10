@@ -16,8 +16,12 @@ namespace MySchool.ViewModels
 
         public int Id { get; set; }
 
+        [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Nome do departamento é obrigatório!")]
         public string Name { get; set; }
 
+        [Display(Name = "Orçamento")]
+        [Required(ErrorMessage = "Orçamento do departamento é obrigatório!")]
         public decimal Budget { get; set; }
 
         public DateTime StartDate { get; }

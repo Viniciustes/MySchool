@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MySchool.Domain.Entities
 {
-    public class Student : BasicEntity
+    public class Student : Person
     {
         public Student(string firstName, string lastName)
         {
@@ -11,10 +11,6 @@ namespace MySchool.Domain.Entities
             LastName = lastName;
             EnrollmentDate = DateTime.Now;
         }
-
-        public string FirstName { get; private set; }
-
-        public string LastName { get; private set; }
 
         public DateTime EnrollmentDate { get; private set; }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MySchool.Infrastructure.Mappings
 {
-    class StudentMappingConfiguration : IEntityTypeConfiguration<Student>
+    internal class StudentMappingConfiguration : IEntityTypeConfiguration<Student>
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {

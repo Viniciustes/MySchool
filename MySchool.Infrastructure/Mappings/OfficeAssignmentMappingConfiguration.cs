@@ -4,7 +4,7 @@ using MySchool.Domain.Entities;
 
 namespace MySchool.Infrastructure.Mappings
 {
-    class OfficeAssignmentMappingConfiguration : IEntityTypeConfiguration<OfficeAssignment>
+    internal class OfficeAssignmentMappingConfiguration : IEntityTypeConfiguration<OfficeAssignment>
     {
         public void Configure(EntityTypeBuilder<OfficeAssignment> builder)
         {
